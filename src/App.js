@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Cardrender from "./components/card";
-import Swal from "sweetalert2";
 
 class App extends React.Component {
     constructor(props) {
@@ -14,6 +13,7 @@ class App extends React.Component {
             display_name: "",
             lat: "",
             lon: "",
+            error: true
         }
     }
     data = async (e) => {
@@ -37,13 +37,10 @@ class App extends React.Component {
       });
     }
     catch (error) {
-      Swal.fire({
-        title: "Error 404",
-        text: "Please enter a valid city",
-        icon: "error",
-        confirmButtonText: "OK",
+      this.setState({
+        error: false // if error is true, then display error message
       });
-    }
+  }
   }
 
   render() {
@@ -66,7 +63,15 @@ class App extends React.Component {
             <Button variant="primary" type="submit" value="Submit">Explore!</Button>
           </Form>
         </div>
+        {this.state.error && 
         <Cardrender display_name={this.state.display_name} lat={this.state.lat} lon={this.state.lon}/>
+        }
+        {!this.state.error &&
+        <div className="error">
+          <h1>Error 404</h1>
+          <p>Please enter a valid city name</p>
+        </div>
+        }
         </>
     );
   }
