@@ -11,15 +11,16 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userData:[],
+            display_name: "",
+            lat: "",
+            lon: "",
         }
     }
     data = async (e) => {
     let url = '';
     e.preventDefault();
-    if (e.target.city.value){
     let key=`key=${process.env.REACT_APP_A_C}&`;
-    if (e.target.choose.value === "US") {;
+    if (e.target.choose.value === "US") {
       url = 'https://us1.locationiq.com/v1/search.php?';
     } else if (e.target.choose.value === "EU") {
       url = 'https://eu1.locationiq.com/v1/search.php?';
@@ -27,20 +28,23 @@ class App extends React.Component {
     let search =e.target.city.value;
     let format = '&format=json';
     let query = `q=${search}`;
-    let response = await axios.get(url+key+query+format);
-    this.setState({userData:response.data});
+    try {
+      const response = await axios.get(url + key + query + format);
+      this.setState({
+        display_name: response.data[0].display_name,
+        lat: response.data[0].lat,
+        lon: response.data[0].lon,
+      });
+    }
+    catch (error) {
+      Swal.fire({
+        title: "Error 404",
+        text: "Please enter a valid city",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   }
-  else {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Please enter a valid city!',
-    })
-  }
-  }
-
-
-  
 
   render() {
     return (
@@ -62,7 +66,7 @@ class App extends React.Component {
             <Button variant="primary" type="submit" value="Submit">Explore!</Button>
           </Form>
         </div>
-        <Cardrender userData={this.state.userData}/>
+        <Cardrender display_name={this.state.display_name} lat={this.state.lat} lon={this.state.lon}/>
         </>
     );
   }
