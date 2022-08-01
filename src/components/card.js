@@ -23,6 +23,7 @@ getData = () => {
                                 <Card.Title>{this.props.display_name}</Card.Title>
                                 <Card.Text>
                                     <CardImg src={this.getData()} alt="map" />
+                                    <span>Latitude: {this.props.lat} and Longitude : {this.props.lon}</span>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
