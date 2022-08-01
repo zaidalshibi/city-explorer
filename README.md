@@ -1,14 +1,19 @@
 # Project Name
 
 **Author**: Zaid Alshibi
-**Version**: 1.0.0
+**Version**: 1.1.0
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+
+- building a project that uses LocationIQ API to explore the cities by their name which display a card containing the city image, lat, lon and title
 
 ## Getting Started
 
 - initialize the project with create-react-app, axios, bootstrap and dotenv libraries
+- create the form to have the user data
+- send a request to the API to have the required city data
+- create the card component to render the city's information
+- have an error massege if the user entered a wrong city name
 
 ## Architecture
 
@@ -23,9 +28,9 @@
 - LocationIQ API
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+01-08-2022 1:40pm - Application now has a fully-functional front-end with a form for user data and the data flow of the API
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+
+- 
