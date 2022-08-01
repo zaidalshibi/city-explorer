@@ -38,7 +38,7 @@ class App extends React.Component {
     }
     catch (error) {
       this.setState({
-        error: false // if error is true, then display error message
+        error: false 
       });
   }
   }
