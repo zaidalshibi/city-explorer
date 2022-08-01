@@ -34,3 +34,5 @@
 ## Credit and Collaborations
 
 ![dataFlow](data-flow.jpg)
+
+### in collaborate with Qais Al-Sgher [GitHub project repo](https://github.com/qais-alsgher/city-explorer)
