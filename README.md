@@ -33,4 +33,4 @@
 
 ## Credit and Collaborations
 
-![dataFlow](data)
+![dataFlow](data-flow.jpg)
