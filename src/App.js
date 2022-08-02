@@ -17,11 +17,18 @@ class App extends React.Component {
       searchName: "",
       data: "",
       response: [],
+      errorMessage: ""
     }
   }
   data = async (e) => {
-    let url = '';
     e.preventDefault();
+    this.renderMap(e);
+    this.renderWeather(this.state.lat, this.state.lon);
+    this.renderMovie(this.state.searchName);
+  }
+
+  renderMap = async (e) => {
+    let url = '';
     let key = `key=${process.env.REACT_APP_A_C}&`;
     if (e.target.choose.value === "US") {
       url = 'https://us1.locationiq.com/v1/search.php?';
@@ -42,12 +49,42 @@ class App extends React.Component {
     }
     catch (error) {
       this.setState({
-        error: false
+        error: false,
+        errorMessage: error.message
       });
     }
   }
-  
+  renderWeather = async () => {
+    try {
+    const response2 = await axios.get(`https://cityexplorerapizaid.herokuapp.com/weather?lat=${this.state.lat}&lon=${this.state.lon}`);
+      this.setState({
+        data: response2.data,
+      }
+      );
+    }
+    catch (error) {
+      this.setState({
+        error: false,
+        errorMessage: error.message
+      });
+    }
+  }
 
+  renderMovie = async (e) => {
+    try {
+    const response3 = await axios.get(`https://cityexplorerapizaid.herokuapp.com/movie?title=${e.target.city.value}`);
+      this.setState({
+        response: response3.data,
+      }
+      );
+    }
+    catch (error) {
+      this.setState({
+        error: false,
+        errorMessage: error.message
+      });
+    }
+  }
   render() {
     return (
       <>
