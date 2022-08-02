@@ -7,25 +7,28 @@ import axios from 'axios';
 import Cardrender from "./components/card";
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            display_name: "",
-            lat: "",
-            lon: "",
-            error: true
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      display_name: "",
+      lat: "",
+      lon: "",
+      error: true,
+      searchName: "",
+      data: "",
+      response: [],
     }
-    data = async (e) => {
+  }
+  data = async (e) => {
     let url = '';
     e.preventDefault();
-    let key=`key=${process.env.REACT_APP_A_C}&`;
+    let key = `key=${process.env.REACT_APP_A_C}&`;
     if (e.target.choose.value === "US") {
       url = 'https://us1.locationiq.com/v1/search.php?';
     } else if (e.target.choose.value === "EU") {
       url = 'https://eu1.locationiq.com/v1/search.php?';
     }
-    let search =e.target.city.value;
+    let search = e.target.city.value;
     let format = '&format=json';
     let query = `q=${search}`;
     try {
@@ -34,14 +37,16 @@ class App extends React.Component {
         display_name: response.data[0].display_name,
         lat: response.data[0].lat,
         lon: response.data[0].lon,
+        searchName: search,
       });
     }
     catch (error) {
       this.setState({
-        error: false 
+        error: false
       });
+    }
   }
-  }
+  
 
   render() {
     return (
@@ -50,7 +55,7 @@ class App extends React.Component {
           <Form onSubmit={this.data}>
             <Form.Group controlId="city">
               <Form.Label>City Name : </Form.Label>
-              <Form.Control type="text"/>
+              <Form.Control type="text" />
             </Form.Group>
             <Form.Group controlId="choose">
               <Form.Label>Choose : </Form.Label>
@@ -63,16 +68,12 @@ class App extends React.Component {
             <Button variant="primary" type="submit" value="Submit">Explore!</Button>
           </Form>
         </div>
-        {this.state.error && 
-        <Cardrender display_name={this.state.display_name} lat={this.state.lat} lon={this.state.lon}/>
+        {this.state.error &&
+          <>
+            <Cardrender display_name={this.state.display_name} lat={this.state.lat} lon={this.state.lon} />
+          </>
         }
-        {!this.state.error &&
-        <div className="error">
-          <h1>Error 404</h1>
-          <p>Please enter a valid city name</p>
-        </div>
-        }
-        </>
+      </>
     );
   }
 }
