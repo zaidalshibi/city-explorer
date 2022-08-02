@@ -23,7 +23,7 @@ class App extends React.Component {
   data = async (e) => {
     e.preventDefault();
     this.renderMap(e);
-    // this.renderWeather(this.state.lat, this.state.lon);
+    this.renderWeather(this.state.lat, this.state.lon);
     this.renderMovie(this.state.searchName);
   }
 
@@ -64,7 +64,6 @@ class App extends React.Component {
     }
     catch (error) {
       this.setState({
-        error: false,
         errorMessage: error.message
       });
     }
@@ -80,7 +79,6 @@ class App extends React.Component {
     }
     catch (error) {
       this.setState({
-        error: false,
         errorMessage: error.message
       });
     }
